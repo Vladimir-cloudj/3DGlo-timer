@@ -1,7 +1,9 @@
-// import './modules/two.js'
-
-// console.log('index');
-
+import menu from './modules/menu.js'
 import timer from './modules/timer.js'
+import modal from './modules/modal.js'
 
-timer("29 may 2026");
+timer("29 june 2026");
+
+menu();
+
+modal();

@@ -16,7 +16,7 @@ const timer = (deadline) => {
             seconds: 0
           }
         }
-        let days = Math.floor((timeRemaining / 60 / 60 / 24) );
+        let days = Math.floor((timeRemaining / 60 / 60 / 24));
         let hours = Math.floor((timeRemaining / 3600) % 24);
         let minutes = Math.floor((timeRemaining / 60) % 60);
         let seconds = Math.floor(timeRemaining % 60);
