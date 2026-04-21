@@ -5,17 +5,26 @@ const modal = () => {
     const modalContent = modal.querySelector('.popup-content')
     
     function isMobile() {
-        return window.innerWidth <= 768
+        return window.innerWidth < 768
     }
     function showModalAnimated() {
+        modal.style.display = 'block'
         if (isMobile()) {
-            modal.style.display = 'block'
+            // modal.style.display = 'block'
+            modalContent.style.opacity = "";
+            modalContent.style.transition = "none";
+            modalContent.style.transform = "";
             return
         }
-        modal.style.display = 'block'
+
         modalContent.style.opacity = '0'
+        modalContent.style.transition = "none";
+        
+        modalContent.offsetHeight;
+
         let startTime = null
         const duration = 300
+
         function animateFrame(timestamp) {
             if (!startTime) {
               startTime = timestamp;
@@ -24,6 +33,8 @@ const modal = () => {
             modalContent.style.opacity = progress
             if (progress < 1) {
                 requestAnimationFrame(animateFrame)
+            } else {
+                modalContent.style.opacity = "";
             }
         }
         requestAnimationFrame(animateFrame)
@@ -31,8 +42,18 @@ const modal = () => {
     function hideModalAnimated() {
         if (isMobile()) {
             modal.style.display = 'none'
+            modalContent.style.opacity = "";
             return
         }
+
+        const currentOpacity = parseFloat(
+          window.getComputedStyle(modalContent).opacity
+        );
+        modalContent.style.opacity = currentOpacity;
+        modalContent.style.transition = "none";
+
+        modalContent.offsetHeight;
+
         let startTime = null
         const duration = 300
 
@@ -54,7 +75,8 @@ const modal = () => {
 
 
     buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault()
             showModalAnimated()
             // modal.style.display = 'block'
         })
@@ -70,6 +92,16 @@ const modal = () => {
             hideModalAnimated()
         }
     })
+
+    window.addEventListener("resize", () => {
+      if (modal.style.display === "block") {
+        if (isMobile()) {
+          modalContent.style.opacity = "";
+          modalContent.style.transition = "none";
+        } else {
+        }
+      }
+    });
 }
 
 export default modal;
