@@ -14,6 +14,16 @@ const formValidation = () => {
     });
   }
 
+  // Утилита PIPE 
+
+  const pipe =
+    (...fns) =>
+    (value) =>
+      fns.reduce((v, fn) => fn(v), value);
+
+  const processSimple = pipe(cleanDuplicates, cleanEdges); 
+  const processMessage = pipe(cleanDuplicates, cleanEdges, capitalizeWords);
+
   // Валидация через INPUT
 
   const telInputs = document.querySelectorAll('input[type="tel"]');
@@ -43,29 +53,19 @@ const formValidation = () => {
 
   telInputs.forEach((input) => {
     input.addEventListener("blur", function () {
-      let value = this.value;
-      value = cleanDuplicates(value);
-      value = cleanEdges(value);
-      this.value = value;
+      this.value = processSimple(this.value);
     });
   });
 
   emailInputs.forEach((input) => {
     input.addEventListener("blur", function () {
-      let value = this.value;
-      value = cleanDuplicates(value);
-      value = cleanEdges(value);
-      this.value = value;
+      this.value = processSimple(this.value);
     });
   });
 
   messageInputs.forEach((input) => {
     input.addEventListener("blur", function () {
-      let value = this.value;
-      value = cleanDuplicates(value);
-      value = cleanEdges(value);
-      value = capitalizeWords(value);
-      this.value = value;
+      this.value = processMessage(this.value);
     });
   });
 };
