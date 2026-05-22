@@ -1,3 +1,5 @@
+import animateNumbers from "./animate-numbers.js";
+
 const calc = (price = 100) => {
     const calcBlock = document.querySelector('.calc-block')
     const calcType = document.querySelector('.calc-type')
@@ -6,6 +8,8 @@ const calc = (price = 100) => {
     const calcDay = document.querySelector('.calc-day')
     const total = document.getElementById('total')
 
+    const { setTargetValue } = animateNumbers();
+    
     const countCalc = () => {
         const calcTypeValue = +calcType.options[calcType.selectedIndex].value
         const calcSquareValue = calcSquare.value
@@ -29,7 +33,8 @@ const calc = (price = 100) => {
         } else {
             totalValue = 0
         }
-        total.textContent = totalValue
+        //total.textContent = totalValue
+        setTargetValue(Math.floor(totalValue));
     }
 
     calcBlock.addEventListener('input', (e) => {
