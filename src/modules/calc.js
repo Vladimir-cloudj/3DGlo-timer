@@ -1,4 +1,5 @@
 import animateNumbers from "./animate-numbers.js";
+// import {animate} from "../helpers.js";
 
 const calc = (price = 100) => {
     const calcBlock = document.querySelector('.calc-block')
@@ -35,6 +36,18 @@ const calc = (price = 100) => {
         }
         //total.textContent = totalValue
         setTargetValue(Math.floor(totalValue));
+
+        // animate({
+        //   duration: 500,
+        //   timing(timeFraction) {
+        //     // ease-out квадратичная
+        //     return 1 - Math.pow(1 - timeFraction, 2);
+        //   },
+        //   draw(progress) {
+        //     const currentValue = Math.floor(totalValue * progress);
+        //     totalElement.textContent = currentValue;
+        //   },
+        // });
     }
 
     calcBlock.addEventListener('input', (e) => {
