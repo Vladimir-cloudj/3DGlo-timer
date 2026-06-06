@@ -20,6 +20,9 @@
   "bugs": {
     "url": "https://github.com/Vladimir-cloudj/3DGlo/issues"
   },
+  "dependencies": {
+    "swiper": "^12.1.4"
+  },
   "homepage": "https://github.com/Vladimir-cloudj/3DGlo#readme",
   "devDependencies": {
     "@babel/core": "^7.29.0",
@@ -31,4 +34,5 @@
     "webpack-cli": "^7.0.2",
     "webpack-dev-server": "^5.2.3"
   }
+
 }

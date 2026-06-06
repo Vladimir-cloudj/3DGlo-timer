@@ -11,7 +11,6 @@ import swiperSlider from './modules/swiper-slider.js';
 timer("29 june 2026");
 
 menu();
-
 modal();
 
 smoothScroll();
