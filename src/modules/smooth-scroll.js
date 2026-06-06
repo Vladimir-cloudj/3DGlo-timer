@@ -1,63 +1,15 @@
-const smoothScroll = () => {
-<<<<<<< Updated upstream
-    const anchors = document.querySelectorAll('a[href^="#"]');
-    const duration = 800; 
-
-    anchors.forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const blockID = this.getAttribute('href').substr(1);
-            
-            if (!blockID) return;
-
-            const targetBlock = document.getElementById(blockID);
-            
-            if (!targetBlock) return;
-
-            const targetPosition = targetBlock.getBoundingClientRect().top + window.pageYOffset;
-            const startPosition = window.pageYOffset;
-            const distance = targetPosition - startPosition;
-            
-            let startTime = null;
-
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                
-                const timeElapsed = currentTime - startTime;
-                
-                const position = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-
-                window.scrollTo(0, position);
-
-                if (timeElapsed < duration) {
-                    requestAnimationFrame(animation);
-                }
-            }
-
-            function easeInOutQuad(t, b, c, d) {
-                t /= d / 2;
-                if (t < 1) return c / 2 * t * t + b;
-                t--;
-                return -c / 2 * (t * (t - 2) - 1) + b;
-            }
-
-            requestAnimationFrame(animation);
-        });
-    });
-=======
+export default function smoothScroll() {
   const anchors = document.querySelectorAll('a[href^="#"]');
   const duration = 800;
+
   anchors.forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
-      e.preventDefault(); 
+      e.preventDefault();
 
       const blockID = this.getAttribute("href").substr(1);
-
       if (!blockID) return;
 
       const targetBlock = document.getElementById(blockID);
-
       if (!targetBlock) return;
 
       const targetPosition =
@@ -71,32 +23,21 @@ const smoothScroll = () => {
         if (startTime === null) startTime = currentTime;
 
         const timeElapsed = currentTime - startTime;
-
-        const position = easeInOutQuad(
-          timeElapsed,
-          startPosition,
-          distance,
-          duration
-        );
+        const progress = Math.min(timeElapsed / duration, 1);
+        const position = startPosition + distance * easeInOutQuad(progress);
 
         window.scrollTo(0, position);
 
-        if (timeElapsed < duration) {
+        if (progress < 1) {
           requestAnimationFrame(animation);
         }
       }
 
-      function easeInOutQuad(t, b, c, d) {
-        t /= d / 2;
-        if (t < 1) return (c / 2) * t * t + b;
-        t--;
-        return (-c / 2) * (t * (t - 2) - 1) + b;
+      function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
       }
 
       requestAnimationFrame(animation);
     });
   });
->>>>>>> Stashed changes
-};
-
-export default smoothScroll;
+}

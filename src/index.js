@@ -8,6 +8,7 @@ import tabs from "./modules/tabs.js";
 import slider from "./modules/slider.js";
 import swiperSlider from './modules/swiper-slider.js';
 
+
 timer("29 june 2026");
 
 menu();
