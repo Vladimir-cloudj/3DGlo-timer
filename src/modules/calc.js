@@ -1,5 +1,5 @@
-import animateNumbers from "./animate-numbers.js";
-// import {animate} from "../helpers.js";
+// import animateNumbers from "./animate-numbers.js";
+import {animate} from "../helpers.js";
 
 const calc = (price = 100) => {
     const calcBlock = document.querySelector('.calc-block')
@@ -9,45 +9,45 @@ const calc = (price = 100) => {
     const calcDay = document.querySelector('.calc-day')
     const total = document.getElementById('total')
 
-    const { setTargetValue } = animateNumbers();
+    // const { setTargetValue } = animateNumbers();
     
     const countCalc = () => {
-        const calcTypeValue = +calcType.options[calcType.selectedIndex].value
-        const calcSquareValue = calcSquare.value
+      const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
+      const calcSquareValue = +calcSquare.value;
 
-        let totalValue = 0
-        let calcCountValue = 1
-        let calcDayValue = 1
+      let totalValue = 0;
+      let calcCountValue = 1;
+      let calcDayValue = 1;
 
-        if (calcCount.value > 1) {
-            calcCountValue += +calcCount.value / 10
-        }
+      if (calcCount.value > 1) {
+        calcCountValue += +calcCount.value / 10;
+      }
 
-        if (calcDay.value && calcDay.value < 5) {
-            calcDayValue = 2
-        } else if (calcDay.value && calcDay.value < 10) {
-            calcDayValue = 1.5
-        }
+      if (calcDay.value && calcDay.value < 5) {
+        calcDayValue = 2;
+      } else if (calcDay.value && calcDay.value < 10) {
+        calcDayValue = 1.5;
+      }
 
-        if (calcType.value || calcSquare.value) {
-            totalValue = price * calcCountValue * calcSquareValue * calcTypeValue
-        } else {
-            totalValue = 0
-        }
-        //total.textContent = totalValue
-        setTargetValue(Math.floor(totalValue));
+      if (calcType.value && calcSquare.value) {
+        totalValue = price * calcCountValue * calcSquareValue * calcTypeValue;
+      } else {
+        totalValue = 0;
+      }
+      //total.textContent = totalValue
+    //   setTargetValue(Math.floor(totalValue));
 
-        // animate({
-        //   duration: 500,
-        //   timing(timeFraction) {
-        //     // ease-out квадратичная
-        //     return 1 - Math.pow(1 - timeFraction, 2);
-        //   },
-        //   draw(progress) {
-        //     const currentValue = Math.floor(totalValue * progress);
-        //     totalElement.textContent = currentValue;
-        //   },
-        // });
+      animate({
+        duration: 500,
+        timing: function(timeFraction) {
+          // ease-out квадратичная
+          return 1 - Math.pow(1 - timeFraction, 2);
+        },
+        draw: function(progress) {
+          const currentValue = Math.floor(totalValue * progress);
+          total.textContent = currentValue;
+        },
+      });
     }
 
     calcBlock.addEventListener('input', (e) => {
