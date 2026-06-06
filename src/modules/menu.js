@@ -1,25 +1,33 @@
 const menu = () => {
-  const menuBtn = document.querySelector('.menu');
-  const menu = document.querySelector('menu');
-  const closeBtn = menu.querySelector('.close-btn')
-  const menuItems = menu.querySelectorAll('li>li>a')
+  const menuBtn = document.querySelector(".menu");
+  const menuElement = document.querySelector("menu");
+  const closeBtn = menuElement.querySelector(".close-btn");
 
-  const handleMenu = () => {
-    // if (!menu.style.transform) {
-    //   menu.style.transform = "translateX(0)";
-    // } else {
-    //   menu.style.transform = "";
-    // }
-    menu.classList.toggle('active-menu')
-  }
+  const toggleMenu = () => {
+    menuElement.classList.toggle("active-menu");
+  };
+  menuElement.addEventListener("click", (event) => {
+    if (event.target.closest(".close-btn")) {
+      toggleMenu();
+    }
+    else if (event.target.closest("li > li > a")) {
+      toggleMenu();
+    }
+  });
+  menuBtn.addEventListener("click", toggleMenu);
 
-  menuBtn.addEventListener('click', handleMenu)
+  document.addEventListener("click", (event) => {
+    const isClickInsideMenu = menuElement.contains(event.target);
+    const isClickOnMenuBtn = menuBtn.contains(event.target);
 
-  closeBtn.addEventListener("click", handleMenu);
-
-//   for (let i = 0; i < menuItems.length; i++) {
-//     menuItems[i].addEventListener('click', handleMenu)
-//   }
-  menuItems.forEach((item) => item.addEventListener("click", handleMenu))
+    if (
+      menuElement.classList.contains("active-menu") &&
+      !isClickInsideMenu &&
+      !isClickOnMenuBtn
+    ) {
+      toggleMenu();
+    }
+  });
 };
+
 export default menu;
