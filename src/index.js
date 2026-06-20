@@ -8,7 +8,7 @@ import formValidation from "./modules/form-validation.js";
 import tabs from "./modules/tabs.js";
 import slider from "./modules/slider.js";
 import swiperSlider from './modules/swiper-slider.js';
-
+import sendForm from "./modules/sendForm.js";
 
 timer("29 june 2026");
 
@@ -23,3 +23,12 @@ formValidation();
 tabs()
 slider()
 swiperSlider()
+sendForm({
+    formId: 'form1', 
+    someElem: [
+        {
+            type: 'block',
+            id: 'total'
+        }
+    ]
+})
